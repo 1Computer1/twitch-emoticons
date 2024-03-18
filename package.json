@@ -1,40 +1,54 @@
 {
-  "name": "twitch-emoticons",
-  "version": "2.1.1",
-  "description": "Gets Twitch emotes and BTTV emotes, as well as parsing text to emotes!",
-  "main": "src/index.js",
-  "typings": "typings/index.d.ts",
-  "keywords": [
-    "emote",
-    "emoticon",
-    "emoji",
-    "bttv",
-    "better",
-    "twitch",
-    "tv",
-    "parse"
-  ],
-  "author": "1Computer",
-  "license": "MIT",
-  "dependencies": {
-    "snekfetch": "^3.1.6"
-  },
-  "devDependencies": {
-    "docdash": "^0.4.0",
-    "eslint": "3.19.0",
-    "jsdoc": "^3.4.3"
-  },
-  "scripts": {
-    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "test": "npm run lint",
-    "lint": "eslint ./src"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/1Computer1/twitch-emoticons.git"
-  },
-  "bugs": {
-    "url": "https://github.com/1Computer1/twitch-emoticons/issues"
-  },
-  "homepage": "https://github.com/1Computer1/twitch-emoticons"
+    "name": "@mkody/twitch-emoticons",
+    "version": "2.6.0",
+    "description": "Gets Twitch, BTTV and FFZ emotes as well as parsing text to emotes!",
+    "main": "src/index.js",
+    "typings": "typings/index.d.ts",
+    "keywords": [
+        "7tv",
+        "bettertwitchtv",
+        "bttv",
+        "emotes",
+        "emoticons",
+        "ffz",
+        "frankerfacez",
+        "parse",
+        "seventv",
+        "twitch-api",
+        "twitch"
+    ],
+    "author": "MKody <gh@kdy.ch> (André Fernandes)",
+    "contrubutors": [
+        "1Computer",
+        "Killusions",
+        "MKody"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@twurple/api": "^5.2.7",
+        "@twurple/auth": "^5.2.7",
+        "got": "^11.8.6"
+    },
+    "devDependencies": {
+        "docdash": "^2.0.0",
+        "eslint": "^8.29.0",
+        "jsdoc": "^4.0.0"
+    },
+    "scripts": {
+        "docs": "jsdoc --configure .jsdoc.json --verbose",
+        "test": "node test/index.js",
+        "lint": "eslint ./src ./test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mkody/twitch-emoticons.git"
+    },
+    "bugs": {
+        "url": "https://github.com/mkody/twitch-emoticons/issues"
+    },
+    "homepage": "https://github.com/mkody/twitch-emoticons",
+    "directories": {
+        "doc": "docs",
+        "test": "test"
+    }
 }

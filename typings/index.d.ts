@@ -1,21 +1,14 @@
-declare module 'twitch-emoticons' {
-    export class BTTVEmote extends Emote {
-        public constructor(channel: Channel, id: string, data: any);
-
-        public ownerName: string;
-        public imageType: string;
-        public readonly owner?: Channel;
-    }
-
+declare module '@mkody/twitch-emoticons' {
     export class Channel {
-        public constructor(fetcher: EmoteFetcher, name: string);
+        public constructor(fetcher: EmoteFetcher, id: number);
 
         public fetcher: EmoteFetcher;
-        public name: string;
+        public id: number;
         public emotes: Collection<string, Emote>;
 
         public fetchBTTVEmotes(): Promise<Collection<string, BTTVEmote>>;
         public fetchFFZEmotes(): Promise<Collection<string, FFZEmote>>;
+        public fetchSevenTVEmotes(): Promise<Collection<string, SevenTVEmote>>;
     }
 
     export abstract class Emote {
@@ -24,29 +17,50 @@ declare module 'twitch-emoticons' {
         public fetcher: EmoteFetcher;
         public channel: Channel;
         public id: string;
-        public type: 'twitch' | 'bttv' | 'ffz';
+        public type: 'twitch' | 'bttv' | 'ffz' | '7tv';
         public code: string;
-
-        public toLink(size: number): string;
     }
 
     export class EmoteFetcher {
+        public constructor(clientId?: string, clientSecret?: string);
+
         public emotes: Collection<string, Emote>;
         public channels: Collection<string, Channel>;
 
-        public fetchTwitchEmotes(names?: string[]): Promise<Collection<string, TwitchEmote>>;
-        public fetchBTTVEmotes(name?: string): Promise<Collection<string, BTTVEmote>>;
-        public fetchFFZEmotes(name: string): Promise<Collection<string, FFZEmote>>;
+        public fetchTwitchEmotes(id?: number): Promise<Collection<string, TwitchEmote>>;
+        public fetchBTTVEmotes(id?: number): Promise<Collection<string, BTTVEmote>>;
+        public fetchFFZEmotes(id: number): Promise<Collection<string, FFZEmote>>;
+        public fetchSevenTVEmotes(id?: number, format?: 'webp' | 'avif'): Promise<Collection<string, SevenTVEmote>>;
     }
 
     export class EmoteParser {
         public constructor(fetcher: EmoteFetcher, options: {
             template?: string,
             type?: string,
-            match?: RegExp 
+            match?: RegExp
         });
 
         public parse(text: string, size?: number): string;
+    }
+
+    export class TwitchEmote extends Emote {
+        public constructor(channel: Channel, id: string, data: object);
+
+        public set?: string;
+        public imageType: string;
+        public readonly owner: Channel;
+
+        public toLink(size: number): string;
+    }
+
+    export class BTTVEmote extends Emote {
+        public constructor(channel: Channel, id: string, data: any);
+
+        public ownerName: string;
+        public imageType: string;
+        public readonly owner?: Channel;
+
+        public toLink(size: number): string;
     }
 
     export class FFZEmote extends Emote {
@@ -56,16 +70,19 @@ declare module 'twitch-emoticons' {
         public sizes: string[];
         public imageType: string;
         public readonly owner?: Channel;
+
+        public toLink(size: number): string;
     }
 
-    export class TwitchEmote extends Emote {
+    export class SevenTVEmote extends Emote {
         public constructor(channel: Channel, id: string, data: object);
 
-        public set?: string;
-        public description?: string;
+        public ownerName: string;
+        public sizes: string[];
         public imageType: string;
-        public readonly ownerName?: Channel;
-        public readonly owner: Channel;
+        public readonly owner?: Channel;
+
+        public toLink(size: number): string;
     }
 
     export class Collection<K, V> extends Map<K, V> {
